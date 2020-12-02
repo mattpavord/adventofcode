@@ -28,9 +28,13 @@ def task_2(numbers: set):
         print("Not found")
 
 
-if __name__ == '__main__':
+def main():
     data = set()
     for line in open(os.getcwd() + '/data/day_1.txt'):
         data.add(int(line))
     task_1(data)
     task_2(data)
+
+
+if __name__ == '__main__':
+    main()
