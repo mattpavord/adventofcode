@@ -4,18 +4,16 @@ from typing import List
 
 def find_trees(slope_data: List[str], right_velocity: int, down_velocity: int):
     slope_width = len(slope_data[0])
-    x = 0
+    x = y = 0
     n_trees_found = 0
-    for i in range(len(slope_data)):
-        y = i * down_velocity
-        if y > len(slope_data):
-            return n_trees_found
+    while y < len(slope_data):
         line = slope_data[y]
         if line[x] == '#':
             n_trees_found += 1
         x += right_velocity
         if x >= slope_width:
             x -= slope_width
+        y += down_velocity
     return n_trees_found
 
 
