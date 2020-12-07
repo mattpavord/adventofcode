@@ -35,13 +35,13 @@ def find_direct_containing_bags(bag: str, bag_rules: Dict) -> List[str]:
     return containing_bags
 
 
-def find_number_of_containing_bags(bag: str, bag_rules: Dict) -> int:
+def find_number_of_contained_bags(bag: str, bag_rules: Dict) -> int:
     """ Find number of bags that are contained in bag input"""
     if bag not in bag_rules:
         return 0
     n_contained_bags = 0
     for contained_bag, quantity in bag_rules[bag].items():
-        n_contained_bags += quantity + quantity * find_number_of_containing_bags(contained_bag, bag_rules)
+        n_contained_bags += quantity + quantity * find_number_of_contained_bags(contained_bag, bag_rules)
     return n_contained_bags
 
 
@@ -58,7 +58,7 @@ def task_1(bag_rules: Dict) -> int:
 
 
 def task_2(bag_rules: Dict) -> int:
-    return find_number_of_containing_bags('shiny gold', bag_rules)
+    return find_number_of_contained_bags('shiny gold', bag_rules)
 
 
 def main():
