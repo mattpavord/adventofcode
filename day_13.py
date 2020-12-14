@@ -11,18 +11,14 @@ def task_1(available_time: int, bus_ids: List[int]) -> int:
 
 
 def task_2(schedule: List[str]) -> int:
-    max_bus_id = max([int(n) for n in schedule if n != 'x'])
-    max_bus_id_index = schedule.index(str(max_bus_id))
-    # starting timestamp will be the first number that meets the requirements of the max_bus_id
-    timestamp = max_bus_id - max_bus_id_index
-    while True:
-        for i in range(len(schedule)):
-            if schedule[i] != 'x' and (timestamp + i) % int(schedule[i]):  # check if invalid timestamp for this bus_id
-                break
-        else:  # timestamp is valid for all bus_ids
-            return timestamp
-        # print(timestamp)
-        timestamp += max_bus_id  # going up in the maximum bus_id will make things much faster
+    timestamp = accumulator = 1
+    for i in range(len(schedule)):
+        if schedule[i] == 'x':
+            continue
+        while (timestamp + i) % int(schedule[i]):  # check if timestamp is a multiple
+            timestamp += accumulator
+        accumulator *= int(schedule[i])  # make sure that we maintain all solutions of the previous numbers
+    return timestamp
 
 
 def main():
