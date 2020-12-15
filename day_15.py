@@ -1,16 +1,29 @@
 from typing import List
-import numpy as np
+
+
+def find_nth_number(n: int, starting_numbers: List[int]) -> int:
+    last_positions = {}
+    new_number = 0
+    for i in range(n):
+        current_number = new_number
+        if i < len(starting_numbers):
+            last_positions[current_number] = i
+            new_number = starting_numbers[i]
+        elif current_number in last_positions:
+            new_number = i - last_positions[current_number]
+        else:
+            last_positions[current_number] = i
+            new_number = 0
+        last_positions[current_number] = i
+    return new_number
 
 
 def task_1(starting_numbers: List[int]) -> int:
-    data = -1 * np.ones(2020, dtype=int)  # use -1 as empty value since it can't be used
-    data[:len(starting_numbers)] = starting_numbers
-    for i in range(len(data)):
-        if data[i] == -1:
-            prev_number = data[i-1]
-            locations = np.where(data == prev_number)[0]
-            data[i] = 0 if len(locations) == 1 else locations[-1] - locations[-2]
-    return data[-1]
+    return find_nth_number(2020, starting_numbers)
+
+
+def task_2(starting_numbers: List[int]) -> int:
+    return find_nth_number(30000000, starting_numbers)
 
 
 def main():
@@ -20,7 +33,7 @@ def main():
         break
     numbers = [int(x) for x in lines[0].split(',')]
     print(task_1(numbers))
-    # print(task_2(numbers))
+    print(task_2(numbers))
 
 
 if __name__ == '__main__':
