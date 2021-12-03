@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AdventOfCode21.iml" filepath="$PROJECT_DIR$/.idea/AdventOfCode21.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../advent_of_code/.idea/advent_of_code.iml" filepath="$PROJECT_DIR$/../advent_of_code/.idea/advent_of_code.iml" />
-    </modules>
-  </component>
-</project>
