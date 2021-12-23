@@ -146,7 +146,7 @@ def scan_hexadecimal(hexadecimal):
         if packet["packet_type"] != 4:
             parent_operators.append(packet)
 
-    # remove unndeeded data
+    # remove unneeded data
     for packet in packets:
         packet.pop("subpacket_index_limit", "")
         packet.pop("n_subpackets", "")
