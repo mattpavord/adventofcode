@@ -1,6 +1,3 @@
-import os
-
-
 POINT_MAPPING = {"A": 1, "B": 2, "C": 3}
 WINNING_ORDER = ["A", "C", "B", "A"]  # shape beats the shape one index ahead of itself
 
@@ -41,7 +38,7 @@ def task_2(data):
 
 def main():
     data = []
-    for line in open(os.getcwd() + "/data/day_02.txt"):
+    for line in open("data/day_02.txt"):
         data.append(line.replace("\n", ""))
 
     print(task_1(data))

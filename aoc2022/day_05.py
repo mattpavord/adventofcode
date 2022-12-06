@@ -1,5 +1,4 @@
 from copy import deepcopy
-import os
 import string
 from collections import defaultdict
 
@@ -55,7 +54,7 @@ def main():
     initial_stack = defaultdict(list)
     instructions = []
     import_instructions = False
-    for line in open(os.getcwd() + "/data/day_05.txt"):
+    for line in open("data/day_05.txt"):
         line = line.replace("\n", "")
         if not line:
             import_instructions = True

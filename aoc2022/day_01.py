@@ -1,6 +1,3 @@
-import os
-
-
 def task_1(data):
     return max(sum(group) for group in data)
 
@@ -13,7 +10,7 @@ def task_2(data):
 def main():
     data = []
     data_group = []  # separate into lists, separated by the linebreak
-    for line in open(os.getcwd() + '/data/day_01.txt'):
+    for line in open("data/day_01.txt"):
         line = line.replace("\n", "")
         if line:
             data_group.append(int(line))

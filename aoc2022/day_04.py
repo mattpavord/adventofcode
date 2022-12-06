@@ -1,6 +1,3 @@
-import os
-
-
 def task_1(data):
     total = 0
     for p1_min, p1_max, p2_min, p2_max in data:
@@ -23,7 +20,7 @@ def task_2(data):
 
 def main():
     data = []
-    for line in open(os.getcwd() + "/data/day_04.txt"):
+    for line in open("data/day_04.txt"):
         line = line.replace("\n", "")
         data.append([int(n) for x in line.split(",") for n in x.split("-")])
 

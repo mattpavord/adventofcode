@@ -1,4 +1,3 @@
-import os
 import string
 
 
@@ -29,7 +28,7 @@ def task_2(data):
 
 def main():
     data = []
-    for line in open(os.getcwd() + "/data/day_03.txt"):
+    for line in open("data/day_03.txt"):
         data.append(line.replace("\n", ""))
 
     print(task_1(data))
