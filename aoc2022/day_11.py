@@ -20,15 +20,24 @@ class Monkey:
         return func(x1, x2)
 
 
-def task_1(data):
+def iterate_monkeys(data, n_rounds, part_1=True):
     monkeys = [Monkey(monkey_data) for monkey_data in data]
-    for _ in range(20):
+    lowest_common_multiple = 1
+    for monkey in monkeys:
+        lowest_common_multiple *= monkey.test_divisible_by
+
+    for _ in range(n_rounds):
         for monkey in monkeys:
             monkey.counted_items += len(monkey.items)
             for _ in range(len(monkey.items)):
                 item = monkey.items.pop(0)
                 item = monkey.apply_operation(item)
-                item = item // 3
+                if part_1:
+                    item = item // 3
+                else:
+                    # only care if it's a remainder of the test numbers, so can reduce it by
+                    # their lowest common multiple
+                    item = item % lowest_common_multiple
                 if item % monkey.test_divisible_by == 0:
                     next_monkey_id = monkey.monkey_if_true
                 else:
@@ -38,8 +47,12 @@ def task_1(data):
     return busy_monkeys[0].counted_items * busy_monkeys[1].counted_items
 
 
+def task_1(data):
+    return iterate_monkeys(data, 20)
+
+
 def task_2(data):
-    return
+    return iterate_monkeys(data, 10000, part_1=False)
 
 
 def main():
