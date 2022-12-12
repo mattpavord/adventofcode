@@ -16,9 +16,9 @@ def get_height(height_char):
     return string.ascii_lowercase.index(height_char)
 
 
-def track_path(start_coords, data):
+def track_path(data, start_letter, end_letter, ascend=True):
     destination_reached = False
-    end_coords = get_coords(data, "E")
+    start_coords = get_coords(data, start_letter)
     distance_maps = {start_coords: 0}  # coords to distance from start
     visited_coords = set()
     x, y = start_coords
@@ -34,33 +34,33 @@ def track_path(start_coords, data):
                 new_height = get_height(data[y+dy, x+dx])
             except IndexError:
                 continue
-            if new_height - current_height > 1:
+            if ascend and new_height - current_height > 1:
                 continue
-            else:
-                new_distance = distance + 1
-                coords = (x+dx, y+dy)
-                if coords in visited_coords:
-                    continue
-                if coords not in distance_maps or new_distance < distance_maps[coords]:
-                    distance_maps[coords] = new_distance
+            if not ascend and current_height - new_height > 1:
+                continue
+            new_distance = distance + 1
+            coords = (x+dx, y+dy)
+            if coords in visited_coords:
+                continue
+            if coords not in distance_maps or new_distance < distance_maps[coords]:
+                distance_maps[coords] = new_distance
 
-        if (x, y) == end_coords:
+        if data[y, x] == end_letter:
             destination_reached = True
 
         else:
             possible_next_coords = set(distance_maps.keys()) - visited_coords
             x, y = sorted(possible_next_coords, key=lambda c: distance_maps[c])[0]
 
-    return distance_maps[end_coords]
+    return distance_maps[(x, y)]
 
 
 def task_1(data):
-    start_coords = get_coords(data, "S")
-    return track_path(start_coords, data)
+    return track_path(data, "S", "E")
 
 
 def task_2(data):
-    return
+    return track_path(data, "E", "a", ascend=False)
 
 
 def main():
