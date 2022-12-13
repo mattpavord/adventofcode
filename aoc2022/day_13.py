@@ -37,7 +37,19 @@ def task_1(data):
 
 
 def task_2(data):
-    return
+    all_packets = []
+    for row in data:
+        all_packets.extend(row)
+
+    # no need to sort all packets, only find which packets land before the divider packet
+    output = 1
+    divider_packets = [[[2]], [[6]]]  # important that these are in order for initial pos
+    for pos, divider_packet in enumerate(divider_packets, start=1):
+        for packet in all_packets:
+            if compare(packet, divider_packet):
+                pos += 1
+        output *= pos
+    return output
 
 
 def main():
