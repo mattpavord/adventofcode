@@ -17,11 +17,11 @@ def calculate_n_occupied(data, y_coord):
         new_x_ranges = []
         for i in range(len(x_ranges) - 1):
             x_min_1, x_max_1 = x_ranges[i]
-            x_min_2, x_max_2 = x_ranges[i+1]
+            x_min_2, x_max_2 = x_ranges[i + 1]
             if x_min_2 <= x_max_1:
                 new_x_ranges.append((x_min_1, max(x_max_1, x_max_2)))
                 # let's not overcomplicate - start over with new ranges
-                new_x_ranges.extend(x_ranges[i+2:])
+                new_x_ranges.extend(x_ranges[i + 2 :])
                 break
             else:
                 new_x_ranges.append((x_min_1, x_max_1))
@@ -30,19 +30,32 @@ def calculate_n_occupied(data, y_coord):
         if overlap:
             x_ranges = new_x_ranges.copy()
 
-    return sum([x_max - x_min for x_min, x_max in x_ranges])
+    return sum([x_max - x_min for x_min, x_max in x_ranges]), x_ranges
 
 
 def task_1(data):
-    return calculate_n_occupied(data, y_coord=2000000)
+    return calculate_n_occupied(data, y_coord=2000000)[0]
 
 
 def task_2(data):
-    return
+    min_coord = 0
+    max_coord = 4000000
+    for y in range(min_coord, max_coord):
+        if not y % 100000:
+            print("Scanned", y)
+        _, x_ranges = calculate_n_occupied(data, y)
+        if any(r[0] <= min_coord and r[1] >= max_coord for r in x_ranges):
+            continue
+        for i in range(len(x_ranges) - 1):
+            _, x_max_1 = x_ranges[i]
+            x_min_2, _ = x_ranges[i + 1]
+            if x_min_2 - x_max_1 == 2:
+                x = x_min_2 - 1
+                return x * 4000000 + y
 
 
 def main():
-    with open('data/day_15.txt', 'rt') as reader:
+    with open("data/day_15.txt", "rt") as reader:
         raw_data = reader.read().split("\n")
     data = []
     for line in raw_data:
